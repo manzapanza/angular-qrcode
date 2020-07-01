@@ -39,6 +39,7 @@ angular.module('monospaced.qrcode', [])
       link: function(scope, element, attrs) {
         var domElement = element[0],
             $canvas = element.find('canvas'),
+            forceImgTag = attrs.type == 'img',
             canvas = $canvas[0],
             context = canvas2D ? canvas.getContext('2d') : null,
             download = 'download' in attrs,
@@ -126,7 +127,7 @@ angular.module('monospaced.qrcode', [])
                 domElement.title = 'Download QR code';
               }
 
-              if (canvas2D) {
+              if (!forceImgTag && canvas2D) {
                 draw(context, qr, modules, tile, color);
 
                 if (download) {
